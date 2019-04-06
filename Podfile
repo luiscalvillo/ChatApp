@@ -18,7 +18,7 @@ target 'ChatApp' do
   pod 'JSQMessagesViewController', '7.3.3'
   pod 'IDMPhotoBrowser'
 
-  pod 'ImagePicker'
+  #pod 'ImagePicker'
 
 	
 
