@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:/Users/luiscalvillo/My Documents/Developer/iOS Development/iOS App Tutorials/Udemy/ChatApp/ChatApp/UsersTableViewController.swift">
+   </FileRef>
+   <FileRef
       location = "group:ChatApp.xcodeproj">
    </FileRef>
    <FileRef

@@ -20,6 +20,8 @@
 		A80205202258760D00E44D86 /* HelperFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A802051F2258760D00E44D86 /* HelperFunctions.swift */; };
 		A802052222587F3700E44D86 /* FinishRegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A802052122587F3700E44D86 /* FinishRegistrationViewController.swift */; };
 		A80205262259366100E44D86 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80205252259366100E44D86 /* SettingsTableViewController.swift */; };
+		A802052C225C662C00E44D86 /* UserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A802052B225C662C00E44D86 /* UserTableViewCell.swift */; };
+		A802052F225C698100E44D86 /* UsersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A802052E225C698100E44D86 /* UsersTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +40,8 @@
 		A802051F2258760D00E44D86 /* HelperFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperFunctions.swift; sourceTree = "<group>"; };
 		A802052122587F3700E44D86 /* FinishRegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinishRegistrationViewController.swift; sourceTree = "<group>"; };
 		A80205252259366100E44D86 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
+		A802052B225C662C00E44D86 /* UserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTableViewCell.swift; sourceTree = "<group>"; };
+		A802052E225C698100E44D86 /* UsersTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UsersTableViewController.swift; path = "/Users/luiscalvillo/My Documents/Developer/iOS Development/iOS App Tutorials/Udemy/ChatApp/ChatApp/UsersTableViewController.swift"; sourceTree = "<absolute>"; };
 		FB181C8E8B50668D2607AC06 /* Pods_ChatApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChatApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD7E045820E9B44A8D766A41 /* Pods-ChatApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChatApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ChatApp/Pods-ChatApp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -92,10 +96,12 @@
 		A8020502225864E500E44D86 /* ChatApp */ = {
 			isa = PBXGroup;
 			children = (
+				A802052D225C691700E44D86 /* Custom Cells */,
 				A802052422587F6D00E44D86 /* Classes */,
 				A8020503225864E500E44D86 /* AppDelegate.swift */,
 				A802052322587F5700E44D86 /* Helpers */,
 				A8020507225864E500E44D86 /* Main.storyboard */,
+				A802052E225C698100E44D86 /* UsersTableViewController.swift */,
 				A8020515225868FE00E44D86 /* WelcomeViewController.swift */,
 				A802052122587F3700E44D86 /* FinishRegistrationViewController.swift */,
 				A80205252259366100E44D86 /* SettingsTableViewController.swift */,
@@ -123,6 +129,14 @@
 				A8020519225872D900E44D86 /* FUser.swift */,
 			);
 			path = Classes;
+			sourceTree = "<group>";
+		};
+		A802052D225C691700E44D86 /* Custom Cells */ = {
+			isa = PBXGroup;
+			children = (
+				A802052B225C662C00E44D86 /* UserTableViewCell.swift */,
+			);
+			path = "Custom Cells";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -273,12 +287,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				A802051A225872D900E44D86 /* FUser.swift in Sources */,
+				A802052C225C662C00E44D86 /* UserTableViewCell.swift in Sources */,
 				A8020516225868FE00E44D86 /* WelcomeViewController.swift in Sources */,
 				A8020504225864E500E44D86 /* AppDelegate.swift in Sources */,
 				A802051E2258758000E44D86 /* CollectionReference.swift in Sources */,
 				A80205262259366100E44D86 /* SettingsTableViewController.swift in Sources */,
 				A802051C225872F900E44D86 /* Constants.swift in Sources */,
 				A802052222587F3700E44D86 /* FinishRegistrationViewController.swift in Sources */,
+				A802052F225C698100E44D86 /* UsersTableViewController.swift in Sources */,
 				A80205202258760D00E44D86 /* HelperFunctions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
