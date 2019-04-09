@@ -24,6 +24,9 @@ class UsersTableViewController: UITableViewController, UISearchResultsUpdating {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.title = "Users"
+        navigationItem.largeTitleDisplayMode = .never
+        tableView.tableFooterView = UIView()
         loadUsers(filter: kCITY)
 
     }
@@ -97,6 +100,22 @@ class UsersTableViewController: UITableViewController, UISearchResultsUpdating {
             ProgressHUD.dismiss()
         }
     }
+    
+    // MARK: IBActions
+    
+    @IBAction func filterSegmentedValueChanged(_ sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex {
+        case 0:
+            loadUsers(filter: kCITY)
+        case 1:
+            loadUsers(filter: kCOUNTRY)
+        case 2:
+            loadUsers(filter: "")
+        default:
+            return 
+        }
+    }
+    
     
     // MARK: Search controller functions
     

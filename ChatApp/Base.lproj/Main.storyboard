@@ -255,7 +255,7 @@
         <!--Chats-->
         <scene sceneID="1jO-ec-YQJ">
             <objects>
-                <viewController id="TSM-Lr-c6q" sceneMemberID="viewController">
+                <viewController id="TSM-Lr-c6q" customClass="ChatsViewController" customModule="ChatApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="EEU-d6-YrB">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -263,7 +263,11 @@
                         <viewLayoutGuide key="safeArea" id="teZ-gO-mZm"/>
                     </view>
                     <navigationItem key="navigationItem" title="Chats" id="VBZ-Am-Ifp">
-                        <barButtonItem key="rightBarButtonItem" systemItem="compose" id="ZuG-jR-ObQ"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="compose" id="ZuG-jR-ObQ">
+                            <connections>
+                                <action selector="createNewChatButtonPressed:" destination="TSM-Lr-c6q" id="xzQ-8y-Rog"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A2K-IJ-YqR" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -273,7 +277,7 @@
         <!--Users Table View Controller-->
         <scene sceneID="JFO-c1-Ee2">
             <objects>
-                <tableViewController storyboardIdentifier="userTableView" id="xxu-DB-jhW" customClass="UsersTableViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="usersTableView" id="xxu-DB-jhW" customClass="UsersTableViewController" customModule="ChatApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="GBB-2Z-tV3">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -289,6 +293,9 @@
                                         <segment title="My Country"/>
                                         <segment title="All"/>
                                     </segments>
+                                    <connections>
+                                        <action selector="filterSegmentedValueChanged:" destination="xxu-DB-jhW" eventType="valueChanged" id="bmY-P4-Dm9"/>
+                                    </connections>
                                 </segmentedControl>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -347,7 +354,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eU6-We-Kb6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4616.8000000000002" y="-238.83058470764618"/>
+            <point key="canvasLocation" x="4742" y="-203"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="QhM-oZ-hz5">

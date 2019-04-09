@@ -22,6 +22,7 @@
 		A80205262259366100E44D86 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80205252259366100E44D86 /* SettingsTableViewController.swift */; };
 		A802052C225C662C00E44D86 /* UserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A802052B225C662C00E44D86 /* UserTableViewCell.swift */; };
 		A802052F225C698100E44D86 /* UsersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A802052E225C698100E44D86 /* UsersTableViewController.swift */; };
+		A8020531225C730A00E44D86 /* ChatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8020530225C730A00E44D86 /* ChatsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		A80205252259366100E44D86 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		A802052B225C662C00E44D86 /* UserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTableViewCell.swift; sourceTree = "<group>"; };
 		A802052E225C698100E44D86 /* UsersTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UsersTableViewController.swift; path = "/Users/luiscalvillo/My Documents/Developer/iOS Development/iOS App Tutorials/Udemy/ChatApp/ChatApp/UsersTableViewController.swift"; sourceTree = "<absolute>"; };
+		A8020530225C730A00E44D86 /* ChatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsViewController.swift; sourceTree = "<group>"; };
 		FB181C8E8B50668D2607AC06 /* Pods_ChatApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChatApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD7E045820E9B44A8D766A41 /* Pods-ChatApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChatApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ChatApp/Pods-ChatApp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -102,6 +104,7 @@
 				A802052322587F5700E44D86 /* Helpers */,
 				A8020507225864E500E44D86 /* Main.storyboard */,
 				A802052E225C698100E44D86 /* UsersTableViewController.swift */,
+				A8020530225C730A00E44D86 /* ChatsViewController.swift */,
 				A8020515225868FE00E44D86 /* WelcomeViewController.swift */,
 				A802052122587F3700E44D86 /* FinishRegistrationViewController.swift */,
 				A80205252259366100E44D86 /* SettingsTableViewController.swift */,
@@ -292,6 +295,7 @@
 				A8020504225864E500E44D86 /* AppDelegate.swift in Sources */,
 				A802051E2258758000E44D86 /* CollectionReference.swift in Sources */,
 				A80205262259366100E44D86 /* SettingsTableViewController.swift in Sources */,
+				A8020531225C730A00E44D86 /* ChatsViewController.swift in Sources */,
 				A802051C225872F900E44D86 /* Constants.swift in Sources */,
 				A802052222587F3700E44D86 /* FinishRegistrationViewController.swift in Sources */,
 				A802052F225C698100E44D86 /* UsersTableViewController.swift in Sources */,
