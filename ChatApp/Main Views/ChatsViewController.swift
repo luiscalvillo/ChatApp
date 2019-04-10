@@ -18,13 +18,23 @@ class ChatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     var recentListener: ListenerRegistration!
     
+    override func viewWillAppear(_ animated: Bool) {
+        loadRecentChats()
+        
+        // remove unused cells
+        tableView.tableFooterView = UIView()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        recentListener.remove()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         navigationController?.navigationBar.prefersLargeTitles = true
+        setTableViewHeader()
     
-        loadRecentChats()
     }
     
 
@@ -78,5 +88,40 @@ class ChatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
                 
             }
         })
+    }
+    
+    
+    // MARK: Custom TableViewHeader
+    
+    func setTableViewHeader() {
+        
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 45))
+        
+        let buttonView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 35))
+        
+        let groupButton = UIButton(frame: CGRect(x: tableView.frame.width - 110, y: 10, width: 100, height: 20))
+        
+        groupButton.addTarget(self, action: #selector(self.groupButtonPressed), for: .touchUpInside)
+        
+        groupButton.setTitle("New Group", for: .normal)
+        
+        let buttonColor = #colorLiteral(red: 0.02368391864, green: 0.4407466054, blue: 0.7316558957, alpha: 1)
+        
+        groupButton.setTitleColor(buttonColor, for: .normal)
+        let lineView = UIView(frame: CGRect(x: 0, y: headerView.frame.height - 1, width: tableView.frame.width, height: 1))
+        
+        lineView.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+        
+        
+        buttonView.addSubview(groupButton)
+        headerView.addSubview(buttonView)
+        headerView.addSubview(lineView)
+        
+        tableView.tableHeaderView = headerView
+        
+    }
+    
+    @objc func groupButtonPressed() {
+        print("button pressed")
     }
 }
