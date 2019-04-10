@@ -25,6 +25,7 @@
 		A8020531225C730A00E44D86 /* ChatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8020530225C730A00E44D86 /* ChatsViewController.swift */; };
 		A8020534225D94A600E44D86 /* ProfileViewTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8020533225D94A600E44D86 /* ProfileViewTableViewController.swift */; };
 		A8020539225DA22C00E44D86 /* Recent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8020538225DA22C00E44D86 /* Recent.swift */; };
+		A802053B225DB26300E44D86 /* RecentChatsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A802053A225DB26300E44D86 /* RecentChatsTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,7 @@
 		A8020530225C730A00E44D86 /* ChatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsViewController.swift; sourceTree = "<group>"; };
 		A8020533225D94A600E44D86 /* ProfileViewTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewTableViewController.swift; sourceTree = "<group>"; };
 		A8020538225DA22C00E44D86 /* Recent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recent.swift; sourceTree = "<group>"; };
+		A802053A225DB26300E44D86 /* RecentChatsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentChatsTableViewCell.swift; sourceTree = "<group>"; };
 		FB181C8E8B50668D2607AC06 /* Pods_ChatApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChatApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD7E045820E9B44A8D766A41 /* Pods-ChatApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChatApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ChatApp/Pods-ChatApp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -141,6 +143,7 @@
 			isa = PBXGroup;
 			children = (
 				A802052B225C662C00E44D86 /* UserTableViewCell.swift */,
+				A802053A225DB26300E44D86 /* RecentChatsTableViewCell.swift */,
 			);
 			path = "Custom Cells";
 			sourceTree = "<group>";
@@ -319,6 +322,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A802053B225DB26300E44D86 /* RecentChatsTableViewCell.swift in Sources */,
 				A802051A225872D900E44D86 /* FUser.swift in Sources */,
 				A8020539225DA22C00E44D86 /* Recent.swift in Sources */,
 				A802052C225C662C00E44D86 /* UserTableViewCell.swift in Sources */,
