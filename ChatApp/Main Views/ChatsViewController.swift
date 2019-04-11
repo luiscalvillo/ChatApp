@@ -135,7 +135,36 @@ class ChatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         muteAction.backgroundColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
         
         return [deleteAction, muteAction]
+        
     }
+    
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        
+        
+        var recent: NSDictionary!
+        
+        if searchController.isActive && searchController.searchBar.text != "" {
+            recent = filteredChats[indexPath.row]
+        } else {
+            recent = recentChats[indexPath.row]
+        }
+        
+        
+        // Restart chat
+        
+        restartRecentChat(recent: recent)
+        
+        // Show chat view
+        
+        
+    }
+    
+    
+    
+    
     
     // MARK: LoadRecentChats
     
