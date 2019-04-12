@@ -27,6 +27,7 @@
 		A8020539225DA22C00E44D86 /* Recent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8020538225DA22C00E44D86 /* Recent.swift */; };
 		A802053B225DB26300E44D86 /* RecentChatsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A802053A225DB26300E44D86 /* RecentChatsTableViewCell.swift */; };
 		A80205432260244C00E44D86 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80205422260244C00E44D86 /* ChatViewController.swift */; };
+		A81898FA226045E500F4F91B /* OutgoingMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = A81898F9226045E500F4F91B /* OutgoingMessages.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +53,7 @@
 		A8020538225DA22C00E44D86 /* Recent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recent.swift; sourceTree = "<group>"; };
 		A802053A225DB26300E44D86 /* RecentChatsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentChatsTableViewCell.swift; sourceTree = "<group>"; };
 		A80205422260244C00E44D86 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		A81898F9226045E500F4F91B /* OutgoingMessages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutgoingMessages.swift; sourceTree = "<group>"; };
 		FB181C8E8B50668D2607AC06 /* Pods_ChatApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChatApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD7E045820E9B44A8D766A41 /* Pods-ChatApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChatApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ChatApp/Pods-ChatApp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -136,6 +138,7 @@
 			isa = PBXGroup;
 			children = (
 				A8020519225872D900E44D86 /* FUser.swift */,
+				A81898F9226045E500F4F91B /* OutgoingMessages.swift */,
 				A8020538225DA22C00E44D86 /* Recent.swift */,
 			);
 			path = Classes;
@@ -330,6 +333,7 @@
 				A8020539225DA22C00E44D86 /* Recent.swift in Sources */,
 				A802052C225C662C00E44D86 /* UserTableViewCell.swift in Sources */,
 				A8020534225D94A600E44D86 /* ProfileViewTableViewController.swift in Sources */,
+				A81898FA226045E500F4F91B /* OutgoingMessages.swift in Sources */,
 				A8020516225868FE00E44D86 /* WelcomeViewController.swift in Sources */,
 				A8020504225864E500E44D86 /* AppDelegate.swift in Sources */,
 				A802051E2258758000E44D86 /* CollectionReference.swift in Sources */,
