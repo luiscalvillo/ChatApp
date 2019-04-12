@@ -159,6 +159,11 @@ class ChatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         // Show chat view
         
+        let chatVC = ChatViewController()
+        
+        chatVC.hidesBottomBarWhenPushed = true 
+        navigationController?.pushViewController(chatVC, animated: true)
+        
         
     }
     
