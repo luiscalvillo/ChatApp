@@ -26,6 +26,7 @@
 		A8020534225D94A600E44D86 /* ProfileViewTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8020533225D94A600E44D86 /* ProfileViewTableViewController.swift */; };
 		A8020539225DA22C00E44D86 /* Recent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8020538225DA22C00E44D86 /* Recent.swift */; };
 		A802053B225DB26300E44D86 /* RecentChatsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A802053A225DB26300E44D86 /* RecentChatsTableViewCell.swift */; };
+		A80205432260244C00E44D86 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80205422260244C00E44D86 /* ChatViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +51,7 @@
 		A8020533225D94A600E44D86 /* ProfileViewTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewTableViewController.swift; sourceTree = "<group>"; };
 		A8020538225DA22C00E44D86 /* Recent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recent.swift; sourceTree = "<group>"; };
 		A802053A225DB26300E44D86 /* RecentChatsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentChatsTableViewCell.swift; sourceTree = "<group>"; };
+		A80205422260244C00E44D86 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		FB181C8E8B50668D2607AC06 /* Pods_ChatApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChatApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD7E045820E9B44A8D766A41 /* Pods-ChatApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChatApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ChatApp/Pods-ChatApp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -170,6 +172,7 @@
 			isa = PBXGroup;
 			children = (
 				A8020533225D94A600E44D86 /* ProfileViewTableViewController.swift */,
+				A80205422260244C00E44D86 /* ChatViewController.swift */,
 				A802052E225C698100E44D86 /* UsersTableViewController.swift */,
 			);
 			path = "Secondary Views";
@@ -335,6 +338,7 @@
 				A802051C225872F900E44D86 /* Constants.swift in Sources */,
 				A802052222587F3700E44D86 /* FinishRegistrationViewController.swift in Sources */,
 				A802052F225C698100E44D86 /* UsersTableViewController.swift in Sources */,
+				A80205432260244C00E44D86 /* ChatViewController.swift in Sources */,
 				A80205202258760D00E44D86 /* HelperFunctions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
