@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import Firebase
+import FirebaseFirestore
 import ProgressHUD
 
 class UsersTableViewController: UITableViewController, UISearchResultsUpdating, UserTableViewCellDelegate {
@@ -87,7 +87,8 @@ class UsersTableViewController: UITableViewController, UISearchResultsUpdating, 
         cell.generateCellWith(fUser: allUsers[indexPath.row], indexPath: indexPath)
         
         cell.delegate = self
-
+        
+        print("cell printout : \(user.firstname)")
         return cell
     }
  
@@ -114,7 +115,7 @@ class UsersTableViewController: UITableViewController, UISearchResultsUpdating, 
     
     override func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
         return index
-    }
+        }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)

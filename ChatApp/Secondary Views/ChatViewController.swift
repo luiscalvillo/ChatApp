@@ -22,8 +22,22 @@ class ChatViewController: JSQMessagesViewController {
     var membersToPush: [String]!
     var titleName: String!
     
-    var outgoingBubble = JSQMessagesBubbleImageFactory()?.outgoingMessagesBubbleImage(with: UIColor.jsq_messageBubbleBlue())
+    let legitTypes = [kAUDIO, kVIDEO, kTEXT, kLOCATION, kPICTURE]
     
+    var maxMessageNumber = 0
+    var minMessageNumber = 0
+    var loadOld = false
+    var loadedMessagesCount = 0
+    
+    
+    var messages: [JSQMessage] = []
+    // save messages as NSDictionary too
+    var objectMessages: [NSDictionary] = []
+    var loadedMessages: [NSDictionary] = []
+    var allPictureMessages: [String] = []
+    var initialLoadComplete = false
+    
+    var outgoingBubble = JSQMessagesBubbleImageFactory()?.outgoingMessagesBubbleImage(with: UIColor.jsq_messageBubbleBlue())
     var incomingBubble = JSQMessagesBubbleImageFactory()?.outgoingMessagesBubbleImage(with: UIColor.jsq_messageBubbleLightGray())
     
 
@@ -41,6 +55,10 @@ class ChatViewController: JSQMessagesViewController {
         
         collectionView.collectionViewLayout.incomingAvatarViewSize = CGSize.zero
         collectionView.collectionViewLayout.outgoingAvatarViewSize = CGSize.zero
+        
+        // load messages
+        loadMessages()
+        
         self.senderId = FUser.currentId()
         self.senderDisplayName = FUser.currentUser()?.firstname
         
@@ -149,10 +167,91 @@ class ChatViewController: JSQMessagesViewController {
             outgoingMessage = OutgoingMessages(message: text, senderId: currentUser.objectId, senderName: currentUser.firstname, date: date, status: kDELIVERED, type: kTEXT)
         }
         
+        JSQSystemSoundPlayer.jsq_playMessageSentSound()
+        // cleans message field
+        self.finishSendingMessage()
         
         outgoingMessage!.sendMessage(chatRoomID: chatRoomId, messageDictionary: outgoingMessage!.messageDictionary, memberIds: memberIds, membersToPush: membersToPush)
     }
     
+    
+    // MARK: Load Messages
+    
+    func loadMessages() {
+        // get last 11 messages
+        
+        reference(.Message).document(FUser.currentId()).collection(chatRoomId).order(by: kDATE, descending: true).limit(to: 11).getDocuments { (snapshot, error) in
+            
+            guard let snapshot = snapshot else {
+                // initial loading is done
+                self.initialLoadComplete = true
+                // listen for new chats
+                return
+            }
+            
+            let sorted = ((dictionaryFromSnapshots(snapshots: snapshot.documents)) as NSArray).sortedArray(using: [NSSortDescriptor(key: kDATE, ascending: true)]) as! [NSDictionary]
+       
+            // remove bad messages
+            
+            self.loadedMessages = self.removeBadMessages(allMessages: sorted)
+                 print(sorted)
+            // insert messages
+            self.insertMessages()
+            self.finishReceivingMessage(animated: true)
+            
+            print("we have \(self.messages.count) messages loaded")
+            self.initialLoadComplete = true
+            
+            // get picture messages
+            
+            // get old messages in background
+            
+            // start listening for new chats
+        }
+    }
+    
+    // MARK: InsertMessages
+    
+    func insertMessages() {
+        maxMessageNumber = loadedMessages.count - loadedMessagesCount
+        minMessageNumber = maxMessageNumber - kNUMBEROFMESSAGES
+        if minMessageNumber < 0 {
+            minMessageNumber = 0
+        }
+        for i in minMessageNumber ..< maxMessageNumber {
+            let messageDictionary = loadedMessages[i]
+            // insert message
+            insertInitialLoadMessages(messageDictionary: messageDictionary)
+      
+            loadedMessagesCount += 1
+        }
+    
+        self.showLoadEarlierMessagesHeader = loadedMessagesCount != loadedMessages.count
+    }
+
+  
+    
+    func insertInitialLoadMessages(messageDictionary: NSDictionary) -> Bool {
+        // check if incoming
+        let incomingMessage = IncomingMessage(collectionView_: self.collectionView!)
+        
+        if (messageDictionary[kSENDERID] as! String ) != FUser.currentId() {
+            // update message status
+            
+        }
+        
+        let message = incomingMessage.createMessage(messageDictionary: messageDictionary, chatRooomId: chatRoomId)
+        
+        if message != nil {
+            objectMessages.append(messageDictionary)
+            messages.append(message!)
+            print("message is nil")
+        
+        }
+        print("insertIntialLoadMessages() called")
+        return isIncoming(messageDictionary: messageDictionary)
+        
+    }
     
     // MARK: IBActions
     
@@ -180,6 +279,38 @@ class ChatViewController: JSQMessagesViewController {
              self.inputToolbar.contentView.rightBarButtonItem.setImage(UIImage(named: "mic"), for: .normal)
         }
     }
+    
+    // MARK: Helper functions
+    
+    func removeBadMessages(allMessages: [NSDictionary]) -> [NSDictionary] {
+        
+        var tempMessages = allMessages
+        
+        for message in tempMessages {
+        
+            if message[kTYPE] != nil {
+                
+                if !self.legitTypes.contains(message[kTYPE] as! String) {
+                    // remove the message
+                    
+                    tempMessages.remove(at: tempMessages.index(of: message)!)
+                }
+            } else {
+                tempMessages.remove(at: tempMessages.index(of: message)!)
+
+            }
+        }
+        
+        return tempMessages
+    }
  
+    
+    func isIncoming(messageDictionary: NSDictionary) -> Bool {
+        if FUser.currentId() == messageDictionary[kSENDERID] as! String {
+            return false
+        } else {
+            return true
+        }
+    }
 
 }

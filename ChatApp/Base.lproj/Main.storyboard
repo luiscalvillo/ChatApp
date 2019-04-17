@@ -470,7 +470,7 @@
                     </tableView>
                     <connections>
                         <outlet property="filterSegmentedControl" destination="COK-ny-9Db" id="bSn-aT-kmD"/>
-                        <outlet property="headerView" destination="sxy-xN-vmr" id="Gnw-D9-69Q"/>
+                        <outlet property="headerView" destination="sxy-xN-vmr" id="cZz-O0-x7o"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eU6-We-Kb6" userLabel="First Responder" sceneMemberID="firstResponder"/>
