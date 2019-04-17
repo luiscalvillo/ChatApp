@@ -81,6 +81,111 @@ class ChatViewController: JSQMessagesViewController {
 
     }
     
+    // MARK: JSQMessages DataSource Functions
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let cell = super.collectionView(collectionView, cellForItemAt: indexPath) as! JSQMessagesCollectionViewCell
+        
+        let data = messages[indexPath.row]
+        
+        // set text color
+        if data.senderId == FUser.currentId() {
+            cell.textView?.textColor = .white
+        } else {
+            cell.textView?.textColor = .black
+
+        }
+        
+        return cell
+    }
+    
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, messageBubbleImageDataForItemAt indexPath: IndexPath!) -> JSQMessageBubbleImageDataSource! {
+        
+        let data = messages[indexPath.row]
+        
+        if data.senderId == FUser.currentId() {
+            return outgoingBubble
+        } else {
+            return incomingBubble
+        }
+    }
+    
+    
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, attributedTextForCellTopLabelAt indexPath: IndexPath!) -> NSAttributedString! {
+        
+        // adding timestamp for every 3 messages
+        if indexPath.item % 3 == 0 {
+            let message = messages[indexPath.row]
+            
+            return JSQMessagesTimestampFormatter.shared()?.attributedTimestamp(for: message.date)
+        }
+        
+        return nil
+    }
+    
+    // height for cell top label
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, layout collectionViewLayout: JSQMessagesCollectionViewFlowLayout!, heightForCellTopLabelAt indexPath: IndexPath!) -> CGFloat {
+        
+        if indexPath.item % 3 == 0 {
+           
+            
+            return kJSQMessagesCollectionViewCellLabelHeightDefault
+        }
+        
+        return 0.0
+        
+    }
+    
+    // height for bottom label
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, attributedTextForCellBottomLabelAt indexPath: IndexPath!) -> NSAttributedString! {
+        
+        let message = objectMessages[indexPath.row]
+        
+        let status: NSAttributedString!
+        
+        let attributedStringColor = [NSAttributedString.Key.foregroundColor : UIColor.darkGray]
+        
+        switch message[kSTATUS] as! String {
+        case kDELIVERED:
+            status = NSAttributedString(string: kDELIVERED)
+        case kREAD:
+            let statusText = "Read" + " " + readTimeFrom(dateString: message[kREADDATE] as! String)
+            status = NSAttributedString(string: statusText, attributes: attributedStringColor)
+        default:
+            status = NSAttributedString(string: "✓")
+        }
+        
+        if indexPath.row == (messages.count - 1) {
+            return status
+        } else {
+            return NSAttributedString(string: "")
+        }
+        
+    }
+    
+    // for read or delivered status
+    
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, layout collectionViewLayout: JSQMessagesCollectionViewFlowLayout!, heightForCellBottomLabelAt indexPath: IndexPath!) -> CGFloat {
+        
+        let data = messages[indexPath.row]
+        
+        if data.senderId == FUser.currentId() {
+            return kJSQMessagesCollectionViewCellLabelHeightDefault
+        } else {
+            return 0.0
+        }
+    }
+    
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, messageDataForItemAt indexPath: IndexPath!) -> JSQMessageData! {
+        return messages[indexPath.row]
+    }
+    
+    
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return messages.count
+    }
+    
+    
     // MARK: JSQMessages Delegate Functions
     
     override func didPressAccessoryButton(_ sender: UIButton!) {
@@ -281,6 +386,16 @@ class ChatViewController: JSQMessagesViewController {
     }
     
     // MARK: Helper functions
+    
+    
+    func readTimeFrom(dateString: String) -> String {
+        let date = dateFormatter().date(from: dateString)
+        
+        let currentDateFormat = dateFormatter()
+        currentDateFormat.dateFormat = "HH:mm"
+        
+        return currentDateFormat.string(from: date!)
+    }
     
     func removeBadMessages(allMessages: [NSDictionary]) -> [NSDictionary] {
         
