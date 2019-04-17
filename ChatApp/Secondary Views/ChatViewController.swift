@@ -261,6 +261,18 @@ class ChatViewController: JSQMessagesViewController {
         }
     }
     
+    // loading earlier messages
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, header headerView: JSQMessagesLoadEarlierHeaderView!, didTapLoadEarlierMessagesButton sender: UIButton!) {
+        
+        // load more messages
+        loadMoreMessages(maxNumber: maxMessageNumber, minNumber: minMessageNumber)
+        
+         self.collectionView.reloadData()
+        
+    }
+    
+   
+    
     
     
     // MARK: Send Messages
@@ -314,7 +326,7 @@ class ChatViewController: JSQMessagesViewController {
             // get picture messages
             
             // get old messages in background
-            
+            self.getOldMessagesInBackground()
             // start listening for new chats
             self.listenForNewChats()
         }
@@ -361,6 +373,27 @@ class ChatViewController: JSQMessagesViewController {
         
     }
     
+    func getOldMessagesInBackground() {
+        if loadedMessages.count > 10 {
+            
+            let firstMessageDate = loadedMessages.first![kDATE] as! String
+            
+            reference(.Message).document(FUser.currentId()).collection(chatRoomId).whereField(kDATE, isLessThan: firstMessageDate).getDocuments { (snapshot, error) in
+            
+                guard let snapshot = snapshot else { return }
+                
+                let sorted = ((dictionaryFromSnapshots(snapshots: snapshot.documents)) as NSArray).sortedArray(using: [NSSortDescriptor(key: kDATE, ascending: true)]) as! [NSDictionary]
+                
+                self.loadedMessages = self.removeBadMessages(allMessages: sorted) + self.loadedMessages
+                
+                // get the picture messages
+                
+                self.maxMessageNumber = self.loadedMessages.count - self.loadedMessagesCount - 1
+                self.minMessageNumber = self.maxMessageNumber - kNUMBEROFMESSAGES
+            }
+        }
+    }
+    
     // MARK: InsertMessages
     
     func insertMessages() {
@@ -402,6 +435,41 @@ class ChatViewController: JSQMessagesViewController {
         print("insertIntialLoadMessages() called")
         return isIncoming(messageDictionary: messageDictionary)
         
+    }
+    
+    // MARK: Load More Messages
+    
+    func loadMoreMessages(maxNumber: Int, minNumber: Int) {
+        
+        if loadOld {
+            maxMessageNumber = minNumber - 1
+            minMessageNumber = maxMessageNumber - kNUMBEROFMESSAGES
+        }
+        
+        if minMessageNumber < 0 {
+            minMessageNumber = 0
+        }
+        
+        for i in (minMessageNumber ... maxMessageNumber).reversed() {
+            let messageDictionary = loadedMessages[i]
+            
+            insertNewMessage(messageDictionary: messageDictionary)
+            
+            loadedMessagesCount += 1
+        }
+        
+        loadOld = true
+        self.showLoadEarlierMessagesHeader = (loadedMessagesCount != loadedMessages.count)
+    }
+    
+    func insertNewMessage(messageDictionary: NSDictionary) {
+        let incomingMessage = IncomingMessage(collectionView_: self.collectionView!)
+        
+        let message = incomingMessage.createMessage(messageDictionary: messageDictionary, chatRooomId: chatRoomId)
+        
+        objectMessages.insert(messageDictionary, at: 0)
+        
+        messages.insert(message!, at: 0)
     }
     
     // MARK: IBActions
