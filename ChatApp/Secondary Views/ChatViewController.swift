@@ -15,12 +15,16 @@ import AVFoundation
 import AVKit
 import FirebaseFirestore
 
-class ChatViewController: JSQMessagesViewController {
+class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     var chatRoomId: String!
     var memberIds: [String]!
     var membersToPush: [String]!
     var titleName: String!
+    
+    var isGroup: Bool?
+    var group: NSDictionary?
+    var withUsers: [FUser] = []
     
     var newChatListener: ListenerRegistration?
     var typingListener: ListenerRegistration?
@@ -44,6 +48,37 @@ class ChatViewController: JSQMessagesViewController {
     var outgoingBubble = JSQMessagesBubbleImageFactory()?.outgoingMessagesBubbleImage(with: UIColor.jsq_messageBubbleBlue())
     var incomingBubble = JSQMessagesBubbleImageFactory()?.outgoingMessagesBubbleImage(with: UIColor.jsq_messageBubbleLightGray())
     
+    
+    // MARK: Custom Headers
+    let leftBarButtonView: UIView = {
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 44))
+        
+        return view
+    }()
+    
+    let avatarButton: UIButton = {
+        let button = UIButton(frame: CGRect(x: 0, y: 10, width: 25, height: 25))
+        
+        return button
+    }()
+    
+    let titleLabel: UILabel = {
+        let title = UILabel(frame: CGRect(x: 30, y: 10, width: 140, height: 15))
+        
+        title.textAlignment = .left
+        
+        title.font = UIFont(name: title.font.fontName, size: 14)
+        
+        return title
+    }()
+    
+    let subTitleLabel: UILabel = {
+        let subTitle = UILabel(frame: CGRect(x: 30, y: 25, width: 140, height: 15))
+        subTitle.textAlignment = .left
+        subTitle.font = UIFont(name: subTitle.font.fontName, size: 10)
+        return subTitle
+    }()
+    
 
       // Fix for iPhone X
     override func viewDidLayoutSubviews() {
@@ -59,6 +94,9 @@ class ChatViewController: JSQMessagesViewController {
         
         collectionView.collectionViewLayout.incomingAvatarViewSize = CGSize.zero
         collectionView.collectionViewLayout.outgoingAvatarViewSize = CGSize.zero
+        
+        
+        setCustomTitle()
         
         // load messages
         loadMessages()
@@ -194,6 +232,9 @@ class ChatViewController: JSQMessagesViewController {
     
     override func didPressAccessoryButton(_ sender: UIButton!) {
         
+        let camera = Camera(delegate_: self)
+        
+        
         let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
         let takePhotoOrVideo = UIAlertAction(title: "Camera", style: .default) { (action) in
@@ -202,8 +243,8 @@ class ChatViewController: JSQMessagesViewController {
         }
         
         let sharePhoto = UIAlertAction(title: "Photo Libary", style: .default) { (action) in
-            
-            print("photo libray")
+        
+            camera.PresentPhotoLibrary(target: self, canEdit: false)
         }
         
         let shareVideo = UIAlertAction(title: "Video Library", style: .default) { (action) in
@@ -286,6 +327,28 @@ class ChatViewController: JSQMessagesViewController {
         
         if let text = text {
             outgoingMessage = OutgoingMessages(message: text, senderId: currentUser.objectId, senderName: currentUser.firstname, date: date, status: kDELIVERED, type: kTEXT)
+        }
+        
+        // picture message
+        
+        if let pic = picture {
+            uploadImage(image: pic, chatRoomId: chatRoomId, view: self.navigationController!.view) { (imageLink) in
+                
+                if imageLink != nil {
+                    
+                    let text = kPICTURE
+                    
+                    outgoingMessage = OutgoingMessages(message: text, pictureLink: imageLink!, senderId: currentUser.objectId, senderName: currentUser.firstname, date: date, status: kDELIVERED, type: kPICTURE)
+                    
+                    JSQSystemSoundPlayer.jsq_playMessageSentSound()
+                    self.finishSendingMessage()
+                    
+                    outgoingMessage?.sendMessage(chatRoomID: self.chatRoomId, messageDictionary: outgoingMessage!.messageDictionary, memberIds: self.memberIds, membersToPush: self.membersToPush)
+                    
+                }
+            }
+            
+            return 
         }
         
         JSQSystemSoundPlayer.jsq_playMessageSentSound()
@@ -479,6 +542,22 @@ class ChatViewController: JSQMessagesViewController {
         
     }
     
+    @objc func infoButtonPressed() {
+        print("show image messages")
+    }
+    
+    @objc func showGroup() {
+        print("show group")
+    }
+    
+    @objc func showUserProfile() {
+        let profileVC = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "profileView") as! ProfileViewTableViewController
+        
+        profileVC.user = withUsers.first
+        
+        self.navigationController?.pushViewController(profileVC, animated: true)
+    }
+    
     // MARK: Custom Send Button
     
     override func textViewDidChange(_ textView: UITextView) {
@@ -499,8 +578,73 @@ class ChatViewController: JSQMessagesViewController {
         }
     }
     
-    // MARK: Helper functions
     
+    // MARK: UpdateUI
+    func setCustomTitle() {
+        leftBarButtonView.addSubview(avatarButton)
+        leftBarButtonView.addSubview(titleLabel)
+        leftBarButtonView.addSubview(subTitleLabel)
+        
+        let infoButton = UIBarButtonItem(image: UIImage(named: "info"), style: .plain, target: self, action: #selector(self.infoButtonPressed))
+        
+        self.navigationItem.rightBarButtonItem = infoButton
+        
+        let leftBarButtonItem = UIBarButtonItem(customView: leftBarButtonView)
+        
+        self.navigationItem.leftBarButtonItems?.append(leftBarButtonItem)
+        
+        if isGroup! {
+            avatarButton.addTarget(self, action: #selector(self.showGroup), for: .touchUpInside)
+        } else {
+            avatarButton.addTarget(self, action: #selector(self.showUserProfile), for: .touchUpInside)
+        }
+        
+        getUsersFromFirestore(withIds: memberIds) { (withUsers) in
+            self.withUsers = withUsers
+            
+            // get avatars
+            if !self.isGroup! {
+                // update user info
+                self.setUIForSingleChat()
+            }
+        }
+    }
+    
+    func setUIForSingleChat() {
+        let withUser = withUsers.first!
+        
+        imageFromData(pictureData: withUser.avatar) { (image) in
+            
+            if image != nil {
+                avatarButton.setImage(image!.circleMasked, for: .normal)
+            }
+        }
+        
+        titleLabel.text = withUser.fullname
+        
+        if withUser.isOnline {
+            subTitleLabel.text = "Online"
+        } else {
+            subTitleLabel.text = "Offline"
+        }
+        
+        avatarButton.addTarget(self, action: #selector(self.showUserProfile), for: .touchUpInside)
+    }
+    
+    
+    // MARK: UIImagePickerController delegate
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        let video = info[UIImagePickerController.InfoKey.mediaURL] as? NSURL
+        let picture = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
+        
+        sendMessage(text: nil, date: Date(), picture: picture, location: nil, video: video, audio: nil)
+        
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
+    
+    // MARK: Helper functions
     
     func readTimeFrom(dateString: String) -> String {
         let date = dateFormatter().date(from: dateString)

@@ -20,7 +20,8 @@ public let APP_STARTED_NOTIFICATION = "AppStartedNotification"
 
 
 //IDS and Keys
-public let kFILEREFERENCE = ""
+// Replace kFILEREFERENCE with your Firebase Storage file id
+public let kFILEREFERENCE = "gs://chatapp-b8597.appspot.com"
 public let kONESIGNALAPPID = ""
 public let kSINCHKEY = ""
 public let kSINCHSECRET = ""

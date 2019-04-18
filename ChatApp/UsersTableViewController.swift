@@ -82,9 +82,8 @@ class UsersTableViewController: UITableViewController, UISearchResultsUpdating, 
             let users = self.allUsersGrouped[sectionTitle]
             user = users![indexPath.row]
         }
-
         
-        cell.generateCellWith(fUser: allUsers[indexPath.row], indexPath: indexPath)
+        cell.generateCellWith(fUser: user, indexPath: indexPath)
         
         cell.delegate = self
         
