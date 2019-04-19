@@ -32,6 +32,7 @@
 		A818990D22681BF200F4F91B /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = A818990C22681BF200F4F91B /* Camera.swift */; };
 		A818990F22681F8C00F4F91B /* Download.swift in Sources */ = {isa = PBXBuildFile; fileRef = A818990E22681F8C00F4F91B /* Download.swift */; };
 		A818991122682D0000F4F91B /* PhotoMediaItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A818991022682D0000F4F91B /* PhotoMediaItem.swift */; };
+		A818991922696D3900F4F91B /* VideoMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A818991822696D3900F4F91B /* VideoMessage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,6 +63,7 @@
 		A818990C22681BF200F4F91B /* Camera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
 		A818990E22681F8C00F4F91B /* Download.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Download.swift; sourceTree = "<group>"; };
 		A818991022682D0000F4F91B /* PhotoMediaItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoMediaItem.swift; sourceTree = "<group>"; };
+		A818991822696D3900F4F91B /* VideoMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoMessage.swift; sourceTree = "<group>"; };
 		FB181C8E8B50668D2607AC06 /* Pods_ChatApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChatApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD7E045820E9B44A8D766A41 /* Pods-ChatApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChatApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ChatApp/Pods-ChatApp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -152,6 +154,7 @@
 				A81898F9226045E500F4F91B /* OutgoingMessages.swift */,
 				A8020538225DA22C00E44D86 /* Recent.swift */,
 				A81899052266DE1D00F4F91B /* IncomingMessages.swift */,
+				A818991822696D3900F4F91B /* VideoMessage.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -344,6 +347,7 @@
 				A802051A225872D900E44D86 /* FUser.swift in Sources */,
 				A8020539225DA22C00E44D86 /* Recent.swift in Sources */,
 				A802052C225C662C00E44D86 /* UserTableViewCell.swift in Sources */,
+				A818991922696D3900F4F91B /* VideoMessage.swift in Sources */,
 				A818991122682D0000F4F91B /* PhotoMediaItem.swift in Sources */,
 				A81899062266DE1D00F4F91B /* IncomingMessages.swift in Sources */,
 				A8020534225D94A600E44D86 /* ProfileViewTableViewController.swift in Sources */,

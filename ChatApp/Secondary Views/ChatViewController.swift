@@ -249,7 +249,7 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         
         let shareVideo = UIAlertAction(title: "Video Library", style: .default) { (action) in
             
-            print("video library")
+            camera.PresentVideoLibrary(target: self, canEdit: false)
         }
         
         let shareLocation = UIAlertAction(title: "Share Location", style: .default) { (action) in
@@ -292,6 +292,10 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         
     }
     
+    
+    
+    
+    
     override func didPressSend(_ button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: Date!) {
         
         if text != "" {
@@ -312,7 +316,45 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         
     }
     
-   
+    // tapping on video message bubble
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, didTapMessageBubbleAt indexPath: IndexPath!) {
+        
+        print("tap on message")
+        
+        let messageDictionary = objectMessages[indexPath.row]
+        let messageType = messageDictionary[kTYPE] as! String
+        
+        switch messageType {
+        case kPICTURE:
+            print("picture tapped")
+            
+            
+        case kLOCATION:
+            print("location tapped")
+        case kVIDEO:
+            print("video tapped")
+            let message = messages[indexPath.row]
+            
+            let mediaItem = message.media as! VideoMessage
+            
+            let player = AVPlayer(url: mediaItem.fileUrl! as URL)
+            
+            let moviePlayer = AVPlayerViewController()
+            
+            let session = AVAudioSession.sharedInstance()
+            
+            try! session.setCategory(.playAndRecord, mode: .default, options: .defaultToSpeaker)
+            
+            moviePlayer.player = player
+            
+            self.present(moviePlayer, animated: true) {
+                moviePlayer.player!.play()
+            }
+            
+        default:
+            print("unkown tapped")
+        }
+    }
     
     
     
@@ -336,7 +378,7 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
                 
                 if imageLink != nil {
                     
-                    let text = kPICTURE
+                    let text = "[\(kPICTURE)]"
                     
                     outgoingMessage = OutgoingMessages(message: text, pictureLink: imageLink!, senderId: currentUser.objectId, senderName: currentUser.firstname, date: date, status: kDELIVERED, type: kPICTURE)
                     
@@ -350,6 +392,35 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
             
             return 
         }
+        
+        // Send Video
+        
+        if let video = video {
+            let videoData = NSData(contentsOfFile: video.path!)
+            
+//            let thumbNail = videoThumbnail(video: video)
+            
+            let dataThumbNail = videoThumbnail(video: video).jpegData(compressionQuality: 0.3)
+            
+            uploadVideo(video: videoData!, chatRoomId: chatRoomId, view: self.navigationController!.view) { (videoLink) in
+                
+                if videoLink != nil {
+                    
+                    let text = "[\(kVIDEO)]"
+                    
+                    outgoingMessage = OutgoingMessages(message: text, video: videoLink!, thumbNail: dataThumbNail! as NSData, senderId: currentUser.objectId, senderName: currentUser.firstname, date: date, status: kDELIVERED, type: kVIDEO)
+                    
+                    JSQSystemSoundPlayer.jsq_playMessageSentSound()
+                    self.finishSendingMessage()
+                    
+                    outgoingMessage?.sendMessage(chatRoomID: self.chatRoomId, messageDictionary: outgoingMessage!.messageDictionary, memberIds: self.memberIds, membersToPush: self.membersToPush)
+                }
+            }
+            
+            return
+            
+        }
+        
         
         JSQSystemSoundPlayer.jsq_playMessageSentSound()
         // cleans message field

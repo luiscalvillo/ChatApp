@@ -25,6 +25,21 @@ func dateFormatter() -> DateFormatter {
     return dateFormatter
 }
 
+// my code
+//func imageFromData(pictureData: String, withBlock: (_ image: UIImage?) -> Void) {
+//
+//    var image: UIImage?
+//
+//    let decodedData = NSData(base64Encoded: pictureData, options: NSData.Base64DecodingOptions(rawValue: 0))
+//
+//    image = UIImage(data: decodedData! as Data)
+//
+//    withBlock(image)
+//}
+
+
+// ichat code
+
 func imageFromData(pictureData: String, withBlock: (_ image: UIImage?) -> Void) {
     
     var image: UIImage?
