@@ -33,6 +33,7 @@
 		A818990F22681F8C00F4F91B /* Download.swift in Sources */ = {isa = PBXBuildFile; fileRef = A818990E22681F8C00F4F91B /* Download.swift */; };
 		A818991122682D0000F4F91B /* PhotoMediaItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A818991022682D0000F4F91B /* PhotoMediaItem.swift */; };
 		A818991922696D3900F4F91B /* VideoMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A818991822696D3900F4F91B /* VideoMessage.swift */; };
+		A818991D226AD4E900F4F91B /* AudioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A818991C226AD4E900F4F91B /* AudioViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,6 +65,7 @@
 		A818990E22681F8C00F4F91B /* Download.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Download.swift; sourceTree = "<group>"; };
 		A818991022682D0000F4F91B /* PhotoMediaItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoMediaItem.swift; sourceTree = "<group>"; };
 		A818991822696D3900F4F91B /* VideoMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoMessage.swift; sourceTree = "<group>"; };
+		A818991C226AD4E900F4F91B /* AudioViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioViewController.swift; sourceTree = "<group>"; };
 		FB181C8E8B50668D2607AC06 /* Pods_ChatApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChatApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD7E045820E9B44A8D766A41 /* Pods-ChatApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChatApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ChatApp/Pods-ChatApp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -155,6 +157,7 @@
 				A8020538225DA22C00E44D86 /* Recent.swift */,
 				A81899052266DE1D00F4F91B /* IncomingMessages.swift */,
 				A818991822696D3900F4F91B /* VideoMessage.swift */,
+				A818991C226AD4E900F4F91B /* AudioViewController.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -362,6 +365,7 @@
 				A802051C225872F900E44D86 /* Constants.swift in Sources */,
 				A802052222587F3700E44D86 /* FinishRegistrationViewController.swift in Sources */,
 				A802052F225C698100E44D86 /* UsersTableViewController.swift in Sources */,
+				A818991D226AD4E900F4F91B /* AudioViewController.swift in Sources */,
 				A80205432260244C00E44D86 /* ChatViewController.swift in Sources */,
 				A80205202258760D00E44D86 /* HelperFunctions.swift in Sources */,
 			);

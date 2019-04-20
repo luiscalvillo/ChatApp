@@ -15,7 +15,7 @@ import AVFoundation
 import AVKit
 import FirebaseFirestore
 
-class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, IQAudioRecorderViewControllerDelegate {
     
     var chatRoomId: String!
     var memberIds: [String]!
@@ -239,7 +239,7 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         
         let takePhotoOrVideo = UIAlertAction(title: "Camera", style: .default) { (action) in
             
-            print("camera")
+            camera.PresentMultyCamera(target: self, canEdit: false)
         }
         
         let sharePhoto = UIAlertAction(title: "Photo Libary", style: .default) { (action) in
@@ -303,6 +303,9 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
             updateSendButton(isSend: false)
         } else {
             print("audio message")
+            let audioVC = AudioViewController(delegate_: self)
+            
+            audioVC.presentAudioRecorder(target: self)
         }
     }
     
@@ -326,9 +329,14 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         
         switch messageType {
         case kPICTURE:
-            print("picture tapped")
             
+            let message = messages[indexPath.row]
+            let mediaItem = message.media as! JSQPhotoMediaItem
+            let photos = IDMPhoto.photos(withImages: [mediaItem.image])
+            let browser = IDMPhotoBrowser(photos: photos)
             
+            self.present(browser!, animated: true, completion: nil)
+   
         case kLOCATION:
             print("location tapped")
         case kVIDEO:
@@ -419,6 +427,27 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
             
             return
             
+        }
+        
+        // send audio
+        
+        if let audioPath = audio {
+            uploadAudio(audioPath: audioPath, chatRoomId: chatRoomId, view: (self.navigationController?.view)!) { (audioLink) in
+                if audioLink != nil {
+                    let text = "[\(kAUDIO)]"
+                    
+                    outgoingMessage = OutgoingMessages(message: text, audioLink: audioLink!, senderId: currentUser.objectId, senderName: currentUser.firstname, date: date, status: kDELIVERED, type: kAUDIO)
+                    
+                    JSQSystemSoundPlayer.jsq_playMessageSentSound()
+                    
+                    self.finishSendingMessage()
+                    
+                    outgoingMessage!.sendMessage(chatRoomID: self.chatRoomId, messageDictionary: outgoingMessage!.messageDictionary, memberIds: self.memberIds, membersToPush: self.membersToPush)
+                    
+                }
+            }
+            
+            return
         }
         
         
@@ -649,6 +678,18 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         }
     }
     
+    
+    // IQAudioDelegate
+    
+    func audioRecorderController(_ controller: IQAudioRecorderViewController, didFinishWithAudioAtPath filePath: String) {
+        self.sendMessage(text: nil, date: Date(), picture: nil, location: nil, video: nil, audio: filePath)
+        
+    }
+
+    
+    func audioRecorderControllerDidCancel(_ controller: IQAudioRecorderViewController) {
+        controller.dismiss(animated: true, completion: nil)
+    }
     
     // MARK: UpdateUI
     func setCustomTitle() {

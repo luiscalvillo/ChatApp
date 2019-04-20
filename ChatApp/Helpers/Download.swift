@@ -206,6 +206,101 @@ func downloadVideo(videoUrl: String, completion: @escaping(_ isReadyToPlay: Bool
 }
 
 
+// Audio messages
+
+func uploadAudio(audioPath: String, chatRoomId: String, view: UIView, completion: @escaping(_ audioLink: String?) -> Void) {
+    
+    let progressHUD = MBProgressHUD.showAdded(to: view, animated: true)
+    
+    progressHUD.mode = .determinateHorizontalBar
+    let dateString = dateFormatter().string(from: Date())
+    
+    let audioFileName = "AudioMessages/" + FUser.currentId() + "/" + chatRoomId + "/" + dateString + ".mov"
+    
+    let audio = NSData(contentsOfFile: audioPath)
+    
+    let storageRef = storage.reference(forURL: kFILEREFERENCE).child(audioFileName)
+    
+    var task : StorageUploadTask!
+    
+    task = storageRef.putData(audio! as Data, metadata: nil, completion: { (metadata, error) in
+        task.removeAllObservers()
+        progressHUD.hide(animated: true)
+        
+        if error != nil {
+            print("error couldnt upload audio \(error!.localizedDescription)")
+        }
+        
+        storageRef.downloadURL(completion: { (url, error) in
+            
+            guard let downloadUrl = url else {
+                completion(nil)
+                
+                return
+            }
+            
+            completion(downloadUrl.absoluteString)
+        })
+    })
+    
+    task.observe(StorageTaskStatus.progress) { (snapshot) in
+        progressHUD.progress = Float((snapshot.progress?.completedUnitCount)!) / Float((snapshot.progress?.totalUnitCount)!)
+        
+    }
+}
+
+
+
+func downloadAudio(audioUrl: String, completion: @escaping(_ image: String) -> Void) {
+    
+    let audioURL = NSURL(string: audioUrl)
+    
+    let audioFileName = (audioUrl.components(separatedBy: "%").last!).components(separatedBy: "?").first!
+    
+    
+    if fileExistsAtPath(path: audioFileName) {
+        // exists
+      
+        completion(audioFileName)
+        
+    } else {
+        
+        // doesnt exist
+        
+        let downloadQueue = DispatchQueue(label: "audioDownloadQueue")
+        
+        downloadQueue.async {
+            let data = NSData(contentsOf: audioURL! as URL)
+            
+            if data != nil {
+                var docURL = getDocumentsURL()
+                
+                docURL = docURL.appendingPathComponent(audioFileName, isDirectory: false)
+                
+                // saving locally
+                data!.write(to: docURL, atomically: true)
+                
+                
+                let imageToReturn = UIImage(data: data! as Data)
+                
+                DispatchQueue.main.sync {
+                    completion(audioFileName)
+                }
+            } else {
+                DispatchQueue.main.async {
+                    print("No audio in database")
+                }
+            }
+        }
+        
+    }
+    
+    
+}
+
+
+
+
 
 // Helpers
 
