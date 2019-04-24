@@ -34,6 +34,7 @@
 		A818991122682D0000F4F91B /* PhotoMediaItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A818991022682D0000F4F91B /* PhotoMediaItem.swift */; };
 		A818991922696D3900F4F91B /* VideoMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A818991822696D3900F4F91B /* VideoMessage.swift */; };
 		A818991D226AD4E900F4F91B /* AudioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A818991C226AD4E900F4F91B /* AudioViewController.swift */; };
+		A8189925226FC70700F4F91B /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8189924226FC70700F4F91B /* MapViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +67,7 @@
 		A818991022682D0000F4F91B /* PhotoMediaItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoMediaItem.swift; sourceTree = "<group>"; };
 		A818991822696D3900F4F91B /* VideoMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoMessage.swift; sourceTree = "<group>"; };
 		A818991C226AD4E900F4F91B /* AudioViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioViewController.swift; sourceTree = "<group>"; };
+		A8189924226FC70700F4F91B /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		FB181C8E8B50668D2607AC06 /* Pods_ChatApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChatApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD7E045820E9B44A8D766A41 /* Pods-ChatApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChatApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ChatApp/Pods-ChatApp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -193,6 +195,7 @@
 			isa = PBXGroup;
 			children = (
 				A8020533225D94A600E44D86 /* ProfileViewTableViewController.swift */,
+				A8189924226FC70700F4F91B /* MapViewController.swift */,
 				A80205422260244C00E44D86 /* ChatViewController.swift */,
 				A802052E225C698100E44D86 /* UsersTableViewController.swift */,
 			);
@@ -355,6 +358,7 @@
 				A81899062266DE1D00F4F91B /* IncomingMessages.swift in Sources */,
 				A8020534225D94A600E44D86 /* ProfileViewTableViewController.swift in Sources */,
 				A81898FA226045E500F4F91B /* OutgoingMessages.swift in Sources */,
+				A8189925226FC70700F4F91B /* MapViewController.swift in Sources */,
 				A8020516225868FE00E44D86 /* WelcomeViewController.swift in Sources */,
 				A818990D22681BF200F4F91B /* Camera.swift in Sources */,
 				A8020504225864E500E44D86 /* AppDelegate.swift in Sources */,
